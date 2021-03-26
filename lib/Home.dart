@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:calculadora/memory.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -7,12 +8,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final _memory = Memory();
+
   _calcButton({String texto}) {
     return Expanded(
       flex: 1,
       child: RaisedButton(
         onPressed: () {
-          print("botão pressionado");
+          setState(() {
+            _memory.applyCommand(texto);
+          });
         },
         child: Text(
           texto,
@@ -36,7 +41,7 @@ class _HomeState extends State<Home> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: AutoSizeText(
-                "000",
+                _memory.result,
                 minFontSize: 20.0,
                 maxFontSize: 80.0,
                 maxLines: 1,
@@ -64,7 +69,7 @@ class _HomeState extends State<Home> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  _calcButton(texto: "C"),
+                  _calcButton(texto: "AC"),
                   _calcButton(texto: "+/-"),
                   _calcButton(texto: "%"),
                   _calcButton(texto: "DEL"),
