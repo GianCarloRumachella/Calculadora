@@ -1,83 +1,66 @@
+import 'package:function_tree/function_tree.dart';
+
 class Memory {
-  static const operations = const ['%', '/', '+', '-', '*', '='];
-
-  String _operation;
-  bool _usedOperation = false;
-  final _buffer = [0.0, 0.0];
-  int _bufferIndex = 0;
-
-  String result = '0';
+  String resultado = "";
+  String expressao = "";
+  final _valor = [];
 
   Memory() {
-    _clear();
+    _limparTela();
   }
 
-  void _clear() {
-    result = '0';
-    _buffer.setAll(0, [0.0, 0.0]);
-    _bufferIndex = 0;
-    _operation = null;
-    _usedOperation = false;
-  }
-
-  void applyCommand(String command) {
-    if (command == 'AC') {
-      _clear();
-    } else if (command == 'DEL') {
-      deleteEndDigit();
-    } else if (operations.contains(command)) {
-      _setOperation(command);
+  insereNumero(String texto) {
+    if (texto == "AC" ||
+        texto == "DEL" ||
+        texto == "%" ||
+        texto == "+/-" ||
+        texto == "/" ||
+        texto == "X" ||
+        texto == "/" ||
+        texto == "-" ||
+        texto == "+" ||
+        texto == "=" ||
+        texto == ".") {
+      teclasEspecias(texto);
     } else {
-      _addDigit(command);
+      resultado += texto;
     }
   }
 
-  void deleteEndDigit() {
-    result = result.length > 1 ? result.substring(0, result.length - 1) : '0';
-  }
-
-  void _addDigit(String digit) {
-    if (_usedOperation) result = '0';
-
-    if (result.contains('.') && digit == '.') digit = '';
-    if (result == '0' && digit != '.') result = '';
-
-    result += digit;
-
-    _buffer[_bufferIndex] = double.tryParse(result);
-    _usedOperation = false;
-  }
-
-  void _setOperation(String operation) {
-    if (_usedOperation && operation == _operation) return;
-
-    if (_bufferIndex == 0) {
-      _bufferIndex = 1;
-    } else {
-      _buffer[0] = _calculate();
+  teclasEspecias(String texto) {
+    if (texto == "AC") {
+      _limparTela();
     }
-    if (operation != '=') _operation = operation;
+    if (texto == "+") {
+      _valor.add(resultado);
+      _valor.add(texto);
 
-    result = _buffer[0].toString();
-    result = result.endsWith('.0') ? result.split('.')[0] : result;
+      expressao += resultado + texto;
+      print("numero $_valor");
+      resultado = "";
+    }
+    if (texto == "=") {
+      _valor.add(resultado);
+      print("numero $_valor");
 
-    _usedOperation = true;
+      print("resolvendo a expressão");
+      _calculaExpressao();
+    }
+    print("tratando as teclas especias");
   }
 
-  double _calculate() {
-    switch (_operation) {
-      case '%':
-        return _buffer[0] % _buffer[1];
-      case '/':
-        return _buffer[0] / _buffer[1];
-      case 'X':
-        return _buffer[0] * _buffer[1];
-      case '+':
-        return _buffer[0] + _buffer[1];
-      case '-':
-        return _buffer[0] - _buffer[1];
-      default:
-        return 0.0;
-    }
+  _limparTela() {
+    resultado = "";
+    expressao = "";
+    _valor.clear();
+  }
+
+  _calculaExpressao() {
+    resultado = "";
+    expressao = "";
+
+    resultado = _valor.join(' ').interpret().toString();
+    _valor.clear();
+    
   }
 }

@@ -16,7 +16,7 @@ class _HomeState extends State<Home> {
       child: RaisedButton(
         onPressed: () {
           setState(() {
-            _memory.applyCommand(texto);
+            _memory.insereNumero(texto);
           });
         },
         child: Text(
@@ -41,7 +41,22 @@ class _HomeState extends State<Home> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: AutoSizeText(
-                _memory.result,
+                _memory.expressao,
+                minFontSize: 20.0,
+                maxFontSize: 40.0,
+                maxLines: 1,
+                textAlign: TextAlign.end,
+                style: TextStyle(
+                  fontWeight: FontWeight.w200,
+                  decoration: TextDecoration.none,
+                  fontSize: 40.0,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AutoSizeText(
+                _memory.resultado,
                 minFontSize: 20.0,
                 maxFontSize: 80.0,
                 maxLines: 1,
