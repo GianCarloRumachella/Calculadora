@@ -4,6 +4,7 @@ class Memory {
   String resultado = "";
   String expressao = "";
   final _valor = [];
+  bool negativo = false;
 
   Memory() {
     _limparTela();
@@ -31,16 +32,34 @@ class Memory {
     if (texto == "AC") {
       _limparTela();
     }
-    if (texto == "+" || texto == "-" || texto == "/" || texto == "*") {
-      _valor.add(resultado);
-      _valor.add(texto);
 
-      expressao += resultado + texto;
-      print("numero $_valor");
-      resultado = "";
+    if (texto == "+" || texto == "-" || texto == "/" || texto == "*") {
+      if (negativo) {
+        _valor.add("-" + resultado);
+        _valor.add(texto);
+
+        expressao += "-" + resultado + texto;
+        print("numero $_valor");
+        resultado = "";
+      } else {
+        _valor.add(resultado);
+        _valor.add(texto);
+
+        expressao += resultado + texto;
+        print("numero $_valor");
+        resultado = "";
+      }
     }
 
-    
+    if (texto == "+/-") {
+      if (negativo == false) {
+        negativo = true;
+      } else {
+        negativo = false;
+      }
+      print(negativo);
+    }
+
     if (texto == "=") {
       _valor.add(resultado);
       print("numero $_valor");
