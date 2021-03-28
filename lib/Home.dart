@@ -111,7 +111,7 @@ class _HomeState extends State<Home> {
                   _calcButton(texto: "4"),
                   _calcButton(texto: "5"),
                   _calcButton(texto: "6"),
-                  _calcButton(texto: "X"),
+                  _calcButton(texto: "*"),
                 ],
               ),
             ),

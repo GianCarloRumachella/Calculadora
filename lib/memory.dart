@@ -31,7 +31,7 @@ class Memory {
     if (texto == "AC") {
       _limparTela();
     }
-    if (texto == "+") {
+    if (texto == "+" || texto == "-" || texto == "/" || texto == "*") {
       _valor.add(resultado);
       _valor.add(texto);
 
@@ -39,6 +39,8 @@ class Memory {
       print("numero $_valor");
       resultado = "";
     }
+
+    
     if (texto == "=") {
       _valor.add(resultado);
       print("numero $_valor");
@@ -61,6 +63,5 @@ class Memory {
 
     resultado = _valor.join(' ').interpret().toString();
     _valor.clear();
-    
   }
 }
