@@ -10,10 +10,11 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final _memory = Memory();
 
-  _calcButton({String texto}) {
+  _calcButton({String texto, Color cor}) {
     return Expanded(
       flex: 1,
-      child: RaisedButton(
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(primary: cor, side: null),
         onPressed: () {
           setState(() {
             _memory.insereNumero(texto);
@@ -84,10 +85,10 @@ class _HomeState extends State<Home> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  _calcButton(texto: "AC"),
-                  _calcButton(texto: "+/-"),
-                  _calcButton(texto: "%"),
-                  _calcButton(texto: "DEL"),
+                  _calcButton(texto: "AC", cor: Colors.orange),
+                  _calcButton(texto: "+/-", cor: Colors.orange),
+                  _calcButton(texto: "%", cor: Colors.orange),
+                  _calcButton(texto: "DEL", cor: Colors.orange),
                 ],
               ),
             ),
@@ -96,10 +97,10 @@ class _HomeState extends State<Home> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  _calcButton(texto: "7"),
-                  _calcButton(texto: "8"),
-                  _calcButton(texto: "9"),
-                  _calcButton(texto: "/"),
+                  _calcButton(texto: "7", cor: Colors.grey),
+                  _calcButton(texto: "8", cor: Colors.grey),
+                  _calcButton(texto: "9", cor: Colors.grey),
+                  _calcButton(texto: "/", cor: Colors.orange),
                 ],
               ),
             ),
@@ -108,10 +109,10 @@ class _HomeState extends State<Home> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  _calcButton(texto: "4"),
-                  _calcButton(texto: "5"),
-                  _calcButton(texto: "6"),
-                  _calcButton(texto: "*"),
+                  _calcButton(texto: "4", cor: Colors.grey),
+                  _calcButton(texto: "5", cor: Colors.grey),
+                  _calcButton(texto: "6", cor: Colors.grey),
+                  _calcButton(texto: "*", cor: Colors.orange),
                 ],
               ),
             ),
@@ -120,10 +121,10 @@ class _HomeState extends State<Home> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  _calcButton(texto: "1"),
-                  _calcButton(texto: "2"),
-                  _calcButton(texto: "3"),
-                  _calcButton(texto: "-"),
+                  _calcButton(texto: "1", cor: Colors.grey),
+                  _calcButton(texto: "2", cor: Colors.grey),
+                  _calcButton(texto: "3", cor: Colors.grey),
+                  _calcButton(texto: "-", cor: Colors.orange),
                 ],
               ),
             ),
@@ -132,10 +133,10 @@ class _HomeState extends State<Home> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  _calcButton(texto: "0"),
-                  _calcButton(texto: "."),
-                  _calcButton(texto: "="),
-                  _calcButton(texto: "+"),
+                  _calcButton(texto: "0", cor: Colors.grey),
+                  _calcButton(texto: ".", cor: Colors.grey),
+                  _calcButton(texto: "=", cor: Colors.orange),
+                  _calcButton(texto: "+", cor: Colors.orange),
                 ],
               ),
             ),

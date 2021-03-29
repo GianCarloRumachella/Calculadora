@@ -1,86 +1,40 @@
 import 'package:function_tree/function_tree.dart';
 
 class Memory {
-  String resultado = "";
-  String expressao = "";
-  final _valor = [];
-  bool negativo = false;
+  String resultado = "0";
+  String expressao = "0";
 
   Memory() {
     _limparTela();
   }
 
-  insereNumero(String texto) {
-    if (texto == "AC" ||
-        texto == "DEL" ||
-        texto == "%" ||
-        texto == "+/-" ||
-        texto == "/" ||
-        texto == "X" ||
-        texto == "/" ||
-        texto == "-" ||
-        texto == "+" ||
-        texto == "=" ||
-        texto == ".") {
-      teclasEspecias(texto);
-    } else {
-      resultado += texto;
-    }
-  }
-
-  teclasEspecias(String texto) {
-    if (texto == "AC") {
-      _limparTela();
-    }
-
-    if (texto == "+" || texto == "-" || texto == "/" || texto == "*") {
-      if (negativo) {
-        _valor.add("-" + resultado);
-        _valor.add(texto);
-
-        expressao += "-" + resultado + texto;
-        print("numero $_valor");
-        resultado = "";
-      } else {
-        _valor.add(resultado);
-        _valor.add(texto);
-
-        expressao += resultado + texto;
-        print("numero $_valor");
-        resultado = "";
-      }
-    }
-
-    if (texto == "+/-") {
-      if (negativo == false) {
-        negativo = true;
-      } else {
-        negativo = false;
-      }
-      print(negativo);
-    }
-
-    if (texto == "=") {
-      _valor.add(resultado);
-      print("numero $_valor");
-
-      print("resolvendo a expressão");
-      _calculaExpressao();
-    }
-    print("tratando as teclas especias");
-  }
-
   _limparTela() {
     resultado = "";
     expressao = "";
-    _valor.clear();
   }
 
-  _calculaExpressao() {
-    resultado = "";
-    expressao = "";
-
-    resultado = _valor.join(' ').interpret().toString();
-    _valor.clear();
+   insereNumero(String texto) {
+    if (texto == "AC") {
+      resultado = "0";
+      expressao = "0";
+    } else if (texto == "DEL") {
+      expressao = expressao.substring(0, expressao.length - 1);
+      if (expressao == "") {
+        expressao = "0";
+        resultado = "0";
+      }
+    } else if (texto == "=") {
+      try {
+        resultado = expressao.interpret().toString();
+      } catch (e) {
+        resultado = "Erro";
+      }
+    } else {
+      if (expressao == "0") {
+        expressao = texto;
+      } else {
+        expressao = expressao + texto;
+      }
+    }
   }
 }
